@@ -1,24 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
+import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const list = [
+  {
+    task: 'Wash Dishes',
+    id: 35457676,
+    completed: false
+  },
+  {
+    task: "Yard work",
+    id: 35457677,
+    completed: false
+  },
+  {
+    task: "grocery shopping",
+    id: 35457678,
+    completed: false
+  }
+];
+
+class App extends Component {
+    state = {
+      list: list
+    }
+  
+  render() {
+    return (
+    <div className="container">
+      <h1>ToDo List</h1>
+      <TodoList list={this.state.list} />
+      <TodoForm />
+      <button>Clear Completed</button>
+    
     </div>
-  );
+   );
+  }
 }
 
 export default App;
