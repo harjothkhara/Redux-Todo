@@ -3,34 +3,15 @@ import './App.css';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import { connect } from 'react-redux';
-import { addTodo } from './actions';
+import { addTodo, toggleTodo, clearCompleted  } from './actions';
 
-const todos = [
-  {
-    task: 'Wash Dishes',
-    id: 35457676,
-    completed: false
-  },
-  {
-    task: "Yard work",
-    id: 35457677,
-    completed: false
-  },
-  {
-    task: "grocery shopping",
-    id: 35457678,
-    completed: false
-  }
-];
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [],
       task: ''
     }
-
   }
     
     handleChanges = e => {
@@ -42,16 +23,26 @@ class App extends Component {
 
     addTodo = e => {
       e.preventDefault();
-      this.props.addTodo(this.state.task)
+      this.props.addTodo(this.state.task);
+      this.setState({ task: '' })
+    }
+
+    toggleTodo = id => {
+      this.props.toggleTodo(id);
+      console.log(this.props);
+    }
+
+    clearCompleted = () => {
+      this.props.clearCompleted();
     }
   
   render() {
     return (
     <div className="container">
       <h1>ToDo List</h1>
-      <TodoList todos={this.props.todos} />
+      <TodoList todos={this.props.todos} toggleTodo={this.toggleTodo} />
       <TodoForm handleChanges={this.handleChanges} addTodo={this.addTodo} task={this.state.task} />
-      <button>Clear Completed</button>
+      <button onClick={this.clearCompleted} >Clear Completed</button>
     
     </div>
    );
@@ -60,9 +51,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    todos: state.todos,
-    task: state.task
+    ...state
   }
 }
 
-export default connect(mapStateToProps, {addTodo})(App);
+export default connect(mapStateToProps, {addTodo, toggleTodo, clearCompleted })(App);

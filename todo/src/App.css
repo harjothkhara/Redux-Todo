@@ -96,8 +96,8 @@ button {
 }
 
 button:hover {
-  color: black;
-  border: 2px solid white;
+  color: white;
+  border: 3px solid red;
   cursor: pointer;
 }
 
@@ -108,4 +108,18 @@ form input {
   margin: 20px;
   width: 174px;
   height: 30px;
+  outline: none;
+}
+
+form input:focus {
+	border: 2px solid #3b3ed4;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cleared {
+	text-decoration: line-through;
 }
